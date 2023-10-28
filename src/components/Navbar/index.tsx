@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import CartSVG from "../../assets/cart.svg";
 import UserSVG from "../../assets/user.svg";
+import { useContext } from "react";
+import { StoreContext } from "../../App";
 
 const NavbarContainer = styled.div`
   display: flex;
@@ -11,15 +13,14 @@ const NavbarContainer = styled.div`
     padding: 0.5rem;
     cursor: pointer;
   }
-
-  a:hover {
-  }
 `;
 
 const Navbar = () => {
+  const { setShowCart } = useContext(StoreContext);
+
   return (
     <NavbarContainer>
-      <a>
+      <a onClick={() => setShowCart(true)}>
         <img src={CartSVG} />
       </a>
       <a>
