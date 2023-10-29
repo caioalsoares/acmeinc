@@ -6,6 +6,7 @@ export const CartWrapper = styled.div<{ $show: boolean }>`
   left: 0;
   top: 0;
   bottom: 0;
+  z-index: 5;
   display: ${(props) => (props.$show ? "block" : "none")};
   backdrop-filter: blur(5px) grayscale(80%);
 `;
@@ -74,6 +75,15 @@ export const CloseButton = styled.img`
   cursor: pointer;
 `;
 
+export const Total = styled.div`
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: right;
+`;
+
+
 export const CartButton = styled.button`
   padding: 1rem;
   font-family: "Alumni Sans", sans-serif;
@@ -84,7 +94,6 @@ export const CartButton = styled.button`
   border: 0px;
   border-radius: 0.25rem;
   cursor: pointer;
-  position: absolute;
   right: 0px;
   bottom: 0px;
   left: 0px;

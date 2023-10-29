@@ -4,7 +4,11 @@ import Navbar from "../Navbar";
 const HeaderContainer = styled.header`
   padding: 1rem;
   display: flex;
+  position: sticky;
+  top:0;
+  backdrop-filter: blur(5px) saturate(300%);
   justify-content: space-between;
+  z-index: 1;
 `;
 
 const LogoContainer = styled.figure`

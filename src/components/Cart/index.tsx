@@ -13,7 +13,9 @@ import {
   ProductsContainer,
   CartButton,
   CloseButton,
+  Total,
 } from "./style";
+import { Typography } from "../LayoutItem/style";
 
 const ProductCard = () => {
   return (
@@ -44,6 +46,7 @@ const Cart = () => {
           <ProductCard />
           <ProductCard />
           <ProductCard />
+          <Total><Typography fontWeight="600" fontSize="14px">Total:</Typography> <Typography fontSize="18px">R$4500</Typography></Total>
         </ProductsContainer>
         <CartButton>finalizar compra</CartButton>
       </CartContainer>
