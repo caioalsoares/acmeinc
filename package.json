@@ -2,7 +2,7 @@
   "name": "acmeinc",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://caioalsoares.github.io/",
+  "homepage": "https://caioalsoares.github.io/acmeinc",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
