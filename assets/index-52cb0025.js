@@ -175,4 +175,4 @@ Error generating stack: `+o.message+`
         margin: 0px;
         padding: 0px;
         font-family: 'Open Sans', sans-serif;    }
-`;Ko.createRoot(document.getElementById("root")).render(N.jsxs(qe.StrictMode,{children:[N.jsx(n0,{}),N.jsx(t0,{})]}));
+`;Ko.createRoot(document.getElementById("root")).render(N.jsxs(qe.StrictMode,{children:[N.jsx(n0,{}),N.jsx(t0,{}),"é mole"]}));
