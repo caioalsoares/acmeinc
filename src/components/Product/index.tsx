@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import FavSVG from "../../assets/fav.svg";
+import { StoreItem } from "../../api";
 
 const ProductContainer = styled.div`
   border-radius: 0.5rem;
@@ -14,6 +15,7 @@ const ProductContainer = styled.div`
 const ProductInfoContainer = styled.div`
   padding: 0.75rem;
   display: grid;
+  grid-template-columns: 1fr auto;
   grid-template-areas:
     "title price"
     "details price";
@@ -46,17 +48,21 @@ const Price = styled.div`
   font-size: 18px;
 `;
 
-const Product = () => {
+interface ProductsProps {
+  item: StoreItem
+}
+
+const Product = ({ item }: ProductsProps) => {
   return (
     <ProductContainer>
-      <img src="https://picsum.photos/250/250" />
+      <img src={item.img} />
       <Favorite>
         <img src={FavSVG} />
       </Favorite>
       <ProductInfoContainer>
-        <ProductTitle>Navio Legítimo</ProductTitle>
+        <ProductTitle>{item.name}</ProductTitle>
         <ProductDetails href="#">ver detalhes</ProductDetails>
-        <Price>R$1694</Price>
+        <Price>R${item.price}</Price>
       </ProductInfoContainer>
     </ProductContainer>
   );

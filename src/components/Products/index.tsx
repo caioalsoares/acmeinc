@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Product from "../Product";
+import { useContext } from "react";
+import { StoreContext } from "../../App";
 
 const ProductsContainer = styled.main`
   display: grid;
@@ -11,18 +13,13 @@ const ProductsContainer = styled.main`
 `;
 
 const Products = () => {
+
+  const { store } = useContext(StoreContext)
+
   return (
     <ProductsContainer>
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
+      {store.map((item) => <Product key={item.id} item={item} />
+      )}
     </ProductsContainer>
   );
 };
