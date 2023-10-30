@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import FavSVG from "../../assets/fav.svg";
 import { StoreItem } from "../../api";
+import { useContext } from "react";
+import { StoreContext } from "../../App";
+import { FavoriteButton } from "../Common";
 
 const ProductContainer = styled.div`
   border-radius: 0.5rem;
@@ -36,6 +38,7 @@ const Favorite = styled.div`
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+
 `;
 
 const Price = styled.div`
@@ -53,18 +56,22 @@ interface ProductsProps {
 }
 
 const Product = ({ item }: ProductsProps) => {
+
+  const { dispatchCart } = useContext(StoreContext)
   return (
     <ProductContainer>
       <img src={item.img} />
       <Favorite>
-        <img src={FavSVG} />
+        <FavoriteButton isFavorite={item.favorite} itemId={item.id} />
       </Favorite>
       <ProductInfoContainer>
         <ProductTitle>{item.name}</ProductTitle>
+        <a onClick={() => dispatchCart({ type: "add", item })}>adicionar</a>
         <ProductDetails href="#">ver detalhes</ProductDetails>
         <Price>R${item.price}</Price>
       </ProductInfoContainer>
-    </ProductContainer>
+
+    </ProductContainer >
   );
 };
 

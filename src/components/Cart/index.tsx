@@ -1,6 +1,6 @@
 import CloseSVG from "../../assets/close.svg";
 import { useContext } from "react";
-import { StoreContext } from "../../App";
+import { CartContext, StoreContext } from "../../App";
 import {
   ProductCardContainer,
   ProductCardImage,
@@ -11,26 +11,36 @@ import {
   CartHeader,
   CartTitle,
   ProductsContainer,
-  CartButton,
   CloseButton,
   Total,
 } from "./style";
 import { Typography } from "../LayoutItem/style";
+import { StoreItem } from "../../api";
+import { CartButton } from "../Common";
 
-const ProductCard = () => {
+interface ProductCardProps {
+  item: StoreItem
+}
+
+const ProductCard = ({ item }: ProductCardProps) => {
+
+  const { dispatchCart } = useContext(StoreContext)
   return (
     <ProductCardContainer>
       <ProductCardImage>
-        <img src="https://picsum.photos/50" />
+        <img src={item.img} width={50} />
       </ProductCardImage>
-      <ProductCardTitle>Noia noiado</ProductCardTitle>
-      <ProductCardPrice>R$ 420</ProductCardPrice>
+      <ProductCardTitle>{item.name}</ProductCardTitle>
+      <ProductCardPrice>R$ {item.price}</ProductCardPrice>
+      <a onClick={() => dispatchCart({ type: "remove", item })}>remover</a>
+
     </ProductCardContainer>
   );
 };
 
 const Cart = () => {
   const { showCart, setShowCart } = useContext(StoreContext);
+  const cart = useContext(CartContext)
 
   return (
     <CartWrapper $show={showCart}>
@@ -40,12 +50,7 @@ const Cart = () => {
           <CartTitle>Itens no carrinho</CartTitle>
         </CartHeader>
         <ProductsContainer>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {cart.map((item: StoreItem) => <ProductCard item={item} key={item.id} />)}
           <Total><Typography fontWeight="600" fontSize="14px">Total:</Typography> <Typography fontSize="18px">R$4500</Typography></Total>
         </ProductsContainer>
         <CartButton>finalizar compra</CartButton>

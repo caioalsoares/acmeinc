@@ -82,23 +82,3 @@ export const Total = styled.div`
     align-items: flex-end;
     justify-content: right;
 `;
-
-
-export const CartButton = styled.button`
-  padding: 1rem;
-  font-family: "Alumni Sans", sans-serif;
-  color: white;
-  background-color: black;
-  font-size: 18px;
-  font-weight: 600;
-  border: 0px;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-
-  &:hover {
-    background-color: #424242;
-  }
-`;

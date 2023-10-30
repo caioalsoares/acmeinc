@@ -3,25 +3,37 @@ import Product from "../Product";
 import { useContext } from "react";
 import { StoreContext } from "../../App";
 
-const ProductsContainer = styled.main`
+const ProductsContainer = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
-  align-items: center;
-  max-width: 1100px;
-  margin: 0px auto;
   gap: 1rem;
 `;
 
-const Products = () => {
+const SimilarTitle = styled.h1`
+  font-size: large;
+  padding:1rem 0 1rem 0rem;
+
+  font-family: "Alumni Sans", sans-serif;
+`
+
+interface ProductsProps {
+  similar: boolean
+}
+const Products = ({ similar }: ProductsProps) => {
 
   const { store } = useContext(StoreContext)
 
-  return (
+  const similarProducts = store.map((item, index) => index < 4 && <Product key={item.id} item={item} />)
+  const allProducts = store.map((item) => <Product key={item.id} item={item} />)
+
+
+
+  return (<>  {similar && <SimilarTitle>produtos que você pode gostar</SimilarTitle>}
+
     <ProductsContainer>
-      {store.map((item) => <Product key={item.id} item={item} />
-      )}
+      {similar ? similarProducts : allProducts}
     </ProductsContainer>
-  );
+  </>);
 };
 
 export default Products;
