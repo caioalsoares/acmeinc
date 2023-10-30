@@ -1,11 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import GlobalStyle from "./globalstyle.ts";
+import Products from "./components/Products/index.tsx";
+import ProductDetails from "./components/ProductDetail/index.tsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/acmeinc",
+    element: <App />,
+    children: [{
+      path: "/acmeinc",
+      element: <Products />
+    }, {
+      path: "/acmeinc/produto/:id",
+      element: <ProductDetails />
+    }
+    ]
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <RouterProvider router={router} />
     <GlobalStyle />
-    <App />
   </React.StrictMode>,
 );

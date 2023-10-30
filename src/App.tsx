@@ -3,8 +3,8 @@ import Cart from "./components/Cart";
 import Header from "./components/Header";
 import { CartActionType, cartReducer } from "./reducer";
 import { MountStore, StoreItem } from "./api";
-import ProductDetails from "./components/ProductDetail";
 import styled from "styled-components";
+import { Outlet, useLocation } from "react-router-dom";
 
 interface StoreContextProps {
   showCart: boolean
@@ -44,7 +44,11 @@ function App() {
     return setStore(setFavorite)
   }
 
+  const { pathname } = useLocation()
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   useEffect(() => {
     MountStore().then(data => setStore(data))
@@ -58,7 +62,7 @@ function App() {
     <StoreContext.Provider value={{ setShowCart, handleFavorite, store, dispatchCart, showCart }}>
       <CartContext.Provider value={cart}>
         <Header></Header>
-        <Content>{store.length ? <ProductDetails /> : "carregando"}</Content>
+        <Content>{store.length ? <Outlet /> : "carregando"}</Content>
         <Cart />
       </CartContext.Provider>
     </StoreContext.Provider>

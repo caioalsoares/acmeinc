@@ -17,7 +17,7 @@ const SimilarTitle = styled.h1`
 `
 
 interface ProductsProps {
-  similar: boolean
+  similar?: boolean
 }
 const Products = ({ similar }: ProductsProps) => {
 

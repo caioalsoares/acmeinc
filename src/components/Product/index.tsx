@@ -3,6 +3,7 @@ import { StoreItem } from "../../api";
 import { useContext } from "react";
 import { StoreContext } from "../../App";
 import { FavoriteButton } from "../Common";
+import { Link } from "react-router-dom";
 
 const ProductContainer = styled.div`
   border-radius: 0.5rem;
@@ -27,12 +28,16 @@ const ProductTitle = styled.div`
   font-weight: 600;
   grid-area: title;
 `;
-const ProductDetails = styled.a`
+const ProductDetails = styled.div`
   font-weight: 300;
   font-size: 12px;
   text-decoration: underline;
   color: black;
   grid-area: details;
+
+  & a {
+    color: black;
+  }
 `;
 const Favorite = styled.div`
   position: absolute;
@@ -67,9 +72,9 @@ const Product = ({ item }: ProductsProps) => {
       <ProductInfoContainer>
         <ProductTitle>{item.name}</ProductTitle>
         <a onClick={() => dispatchCart({ type: "add", item })}>adicionar</a>
-        <ProductDetails href="#">ver detalhes</ProductDetails>
+        <ProductDetails><Link to={`/acmeinc/produto/${item.id}`} >ver detalhes</Link></ProductDetails>
         <Price>R${item.price}</Price>
-      </ProductInfoContainer>
+      </ProductInfoContainer >
 
     </ProductContainer >
   );

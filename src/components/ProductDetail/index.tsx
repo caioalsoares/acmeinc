@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { StoreContext } from "../../App";
 import Products from "../Products";
 import { Typography } from "../LayoutItem/style";
 import { CartButton, FavoriteButton } from "../Common";
-import { StoreItem } from "../../api";
+import { useParams } from "react-router-dom";
 
 
 const ProductsContainer = styled.main`
@@ -50,13 +50,19 @@ const ProductBuy = styled.div`
     }
 
 `
+
+
 const ProductDetails = () => {
+
+    useEffect
 
     const { store, dispatchCart } = useContext(StoreContext)
 
-    const product: StoreItem = store[0]
+    const { id } = useParams()
 
-    return (
+    const product = id && store.find(item => item.id == parseInt(id))
+
+    return (product &&
         <>
             <ProductsContainer>
                 <ProductImage><img src={product.img} width={500} /></ProductImage>

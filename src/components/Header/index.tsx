@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Navbar from "../Navbar";
+import { Link } from "react-router-dom";
 
 const HeaderContainer = styled.header`
   padding: 1rem;
@@ -12,15 +13,21 @@ const HeaderContainer = styled.header`
 `;
 
 const LogoContainer = styled.figure`
+
+  & a {
   font-family: "Alumni Sans", sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
+  color: black;
+  text-decoration: none;
+}
+  
 `;
 
 const Header = () => {
   return (
     <HeaderContainer>
-      <LogoContainer>acme inc.</LogoContainer>
+      <LogoContainer><Link to="./">acme inc.</Link></LogoContainer>
       <Navbar />
     </HeaderContainer>
   );
