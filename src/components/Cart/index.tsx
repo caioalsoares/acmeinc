@@ -13,19 +13,19 @@ import {
   ProductsContainer,
   CloseButton,
   Total,
+  Remove,
 } from "./style";
 import { Typography } from "../LayoutItem/style";
 import { StoreItem } from "../../api";
 import { CartButton } from "../Common";
-import MinusSVG from "../../assets/minus.svg"
+import MinusSVG from "../../assets/minus.svg";
 
 interface ProductCardProps {
-  item: StoreItem
+  item: StoreItem;
 }
 
 const ProductCard = ({ item }: ProductCardProps) => {
-
-  const { dispatchCart } = useContext(StoreContext)
+  const { dispatchCart } = useContext(StoreContext);
   return (
     <ProductCardContainer>
       <ProductCardImage>
@@ -33,19 +33,24 @@ const ProductCard = ({ item }: ProductCardProps) => {
       </ProductCardImage>
       <ProductCardTitle>{item.name}</ProductCardTitle>
       <ProductCardPrice>R$ {item.price}</ProductCardPrice>
-      <a onClick={() => dispatchCart({ type: "remove", item })}><img src={MinusSVG} /></a>
-
+      <Remove onClick={() => dispatchCart({ type: "remove", item })}>
+        <img src={MinusSVG} />
+      </Remove>
     </ProductCardContainer>
   );
 };
 
 const Cart = () => {
   const { showCart, setShowCart } = useContext(StoreContext);
-  const cart = useContext(CartContext)
+  const cart = useContext(CartContext);
 
-  const total = cart.length && cart.map((item) => +item.price).reduce((accumulator, currentValue) => accumulator + currentValue)
+  const total =
+    cart.length &&
+    cart
+      .map((item) => +item.price)
+      .reduce((accumulator, currentValue) => accumulator + currentValue);
 
-  console.log(total)
+  console.log(total);
 
   return (
     <CartWrapper $show={showCart}>
@@ -55,14 +60,18 @@ const Cart = () => {
           <CartTitle>Itens no carrinho</CartTitle>
         </CartHeader>
         <ProductsContainer>
-          {cart.map((item: StoreItem) => <ProductCard item={item} key={item.id} />)}
+          {cart.map((item: StoreItem) => (
+            <ProductCard item={item} key={item.id} />
+          ))}
 
-          {!!total &&
+          {!!total && (
             <Total>
-              <Typography fontWeight="600" fontSize="14px">Total:</Typography>
+              <Typography fontWeight="600" fontSize="14px">
+                Total:
+              </Typography>
               <Typography fontSize="18px">R${total.toFixed(2)}</Typography>
             </Total>
-          }
+          )}
         </ProductsContainer>
         <CartButton>finalizar compra</CartButton>
       </CartContainer>

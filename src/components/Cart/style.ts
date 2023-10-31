@@ -13,8 +13,12 @@ export const CartWrapper = styled.div<{ $show: boolean }>`
 
 export const CartContainer = styled.aside`
   @keyframes showCart {
-    from {transform: translateX(300px)}
-    to {transform: translateX(0px)}
+    from {
+      transform: translateX(300px);
+    }
+    to {
+      transform: translateX(0px);
+    }
   }
   animation: 0.5s 1 showCart ease-out;
   background-color: white;
@@ -53,10 +57,10 @@ export const ProductsContainer = styled.div`
 
 export const ProductCardContainer = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   grid-template-areas:
-    "image title"
-    "image price";
+    "image title remove"
+    "image price price";
   gap: 1rem;
 `;
 
@@ -81,9 +85,16 @@ export const CloseButton = styled.img`
 `;
 
 export const Total = styled.div`
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: right;
+`;
+
+export const Remove = styled.div`
+  grid-area: remove;
+  & img {
     cursor: pointer;
-    flex: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: right;
+  }
 `;

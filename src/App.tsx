@@ -7,59 +7,57 @@ import styled from "styled-components";
 import { Outlet, useLocation } from "react-router-dom";
 
 interface StoreContextProps {
-  showCart: boolean
-  store: StoreItem[]
+  showCart: boolean;
+  store: StoreItem[];
   setShowCart: (showCart: boolean) => void;
   handleFavorite: (itemId: number) => void;
   dispatchCart: (action: CartActionType) => void;
 }
 
-
-
 export const StoreContext = createContext<StoreContextProps>({
   showCart: true,
   store: [],
-  setShowCart: () => { },
-  handleFavorite: () => { },
-  dispatchCart: () => { },
+  setShowCart: () => {},
+  handleFavorite: () => {},
+  dispatchCart: () => {},
 });
 
-
-export const CartContext = createContext<StoreItem[]>([])
+export const CartContext = createContext<StoreItem[]>([]);
 
 const Content = styled.main`
   max-width: 1100px;
   margin: 0px auto;
-`
+`;
 
 function App() {
-
   const [showCart, setShowCart] = useState(false);
 
-  const [store, setStore] = useState<StoreItem[]>([])
+  const [store, setStore] = useState<StoreItem[]>([]);
 
   const handleFavorite = (itemId: number) => {
-    const setFavorite = store.map(item => item.id == itemId ? { ...item, favorite: !item.favorite } : item)
+    const setFavorite = store.map((item) =>
+      item.id == itemId ? { ...item, favorite: !item.favorite } : item,
+    );
 
-    return setStore(setFavorite)
-  }
+    return setStore(setFavorite);
+  };
 
-  const { pathname } = useLocation()
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    MountStore().then(data => setStore(data))
-  }, [])
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-  const [cart, dispatchCart] = useReducer(cartReducer, [])
+  useEffect(() => {
+    MountStore().then((data) => setStore(data));
+  }, []);
 
-
+  const [cart, dispatchCart] = useReducer(cartReducer, []);
 
   return (
-    <StoreContext.Provider value={{ setShowCart, handleFavorite, store, dispatchCart, showCart }}>
+    <StoreContext.Provider
+      value={{ setShowCart, handleFavorite, store, dispatchCart, showCart }}
+    >
       <CartContext.Provider value={cart}>
         <Header></Header>
         <Content>{store.length ? <Outlet /> : "carregando"}</Content>
