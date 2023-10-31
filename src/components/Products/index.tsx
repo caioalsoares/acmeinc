@@ -2,10 +2,13 @@ import styled from "styled-components";
 import Product from "../Product";
 import { useContext } from "react";
 import { StoreContext } from "../../App";
+import { matchSorter } from "match-sorter";
+import { useParams } from "react-router-dom";
 
 const ProductsContainer = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
+  grid-template-rows: 1fr;
   gap: 1rem;
 `;
 
@@ -17,21 +20,55 @@ const SimilarTitle = styled.h1`
 `
 
 interface ProductsProps {
-  similar?: boolean
+  type?: "favorite" | "search" | "similar"
 }
-const Products = ({ similar }: ProductsProps) => {
+const Products = ({ type }: ProductsProps) => {
 
   const { store } = useContext(StoreContext)
 
-  const similarProducts = store.map((item, index) => index < 4 && <Product key={item.id} item={item} />)
-  const allProducts = store.map((item) => <Product key={item.id} item={item} />)
+  const { searchParam } = useParams()
+
+  const filterProducts = (type: string | undefined) => {
+    switch (type) {
+      case "favorite": {
+        return store.filter((item) => item.favorite && item)
+      }
+      case "search": {
+        return searchParam ? matchSorter(store, searchParam, { keys: ['name'] }) : store
+      }
+      case "similar": {
+        return store.filter((_item, index) => index < 4)
+      }
+      default: {
+        return store
+      }
+    }
+  }
+
+  const products = filterProducts(type)
+
+  const handleTitle = (type: string | undefined) => {
+    switch (type) {
+      case "similar": {
+        return "produtos que você pode gostar"
+      }
+      case "search": {
+        return searchParam && `busca por ${searchParam}`
+      }
+      case "favorite": {
+        return "seus favoritos"
+      }
+      default: {
+        return ""
+      }
+    }
+  }
 
 
-
-  return (<>  {similar && <SimilarTitle>produtos que você pode gostar</SimilarTitle>}
+  return (<>  <SimilarTitle>{handleTitle(type)}</SimilarTitle>
 
     <ProductsContainer>
-      {similar ? similarProducts : allProducts}
+      {products.map((item) => <Product key={item.id} item={item} />)}
     </ProductsContainer>
   </>);
 };

@@ -17,6 +17,7 @@ import {
 import { Typography } from "../LayoutItem/style";
 import { StoreItem } from "../../api";
 import { CartButton } from "../Common";
+import MinusSVG from "../../assets/minus.svg"
 
 interface ProductCardProps {
   item: StoreItem
@@ -32,7 +33,7 @@ const ProductCard = ({ item }: ProductCardProps) => {
       </ProductCardImage>
       <ProductCardTitle>{item.name}</ProductCardTitle>
       <ProductCardPrice>R$ {item.price}</ProductCardPrice>
-      <a onClick={() => dispatchCart({ type: "remove", item })}>remover</a>
+      <a onClick={() => dispatchCart({ type: "remove", item })}><img src={MinusSVG} /></a>
 
     </ProductCardContainer>
   );
@@ -41,6 +42,10 @@ const ProductCard = ({ item }: ProductCardProps) => {
 const Cart = () => {
   const { showCart, setShowCart } = useContext(StoreContext);
   const cart = useContext(CartContext)
+
+  const total = cart.length && cart.map((item) => +item.price).reduce((accumulator, currentValue) => accumulator + currentValue)
+
+  console.log(total)
 
   return (
     <CartWrapper $show={showCart}>
@@ -51,7 +56,13 @@ const Cart = () => {
         </CartHeader>
         <ProductsContainer>
           {cart.map((item: StoreItem) => <ProductCard item={item} key={item.id} />)}
-          <Total><Typography fontWeight="600" fontSize="14px">Total:</Typography> <Typography fontSize="18px">R$4500</Typography></Total>
+
+          {!!total &&
+            <Total>
+              <Typography fontWeight="600" fontSize="14px">Total:</Typography>
+              <Typography fontSize="18px">R${total.toFixed(2)}</Typography>
+            </Total>
+          }
         </ProductsContainer>
         <CartButton>finalizar compra</CartButton>
       </CartContainer>

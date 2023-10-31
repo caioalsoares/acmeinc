@@ -7,11 +7,16 @@ export const CartWrapper = styled.div<{ $show: boolean }>`
   top: 0;
   bottom: 0;
   z-index: 5;
-  display: ${(props) => (props.$show ? "block" : "none")};
   backdrop-filter: blur(5px) grayscale(80%);
+  display: ${(props) => (props.$show ? "block" : "none")};
 `;
 
 export const CartContainer = styled.aside`
+  @keyframes showCart {
+    from {transform: translateX(300px)}
+    to {transform: translateX(0px)}
+  }
+  animation: 0.5s 1 showCart ease-out;
   background-color: white;
   display: flex;
   flex-direction: column;

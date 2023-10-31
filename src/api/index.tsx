@@ -59,13 +59,18 @@ export const MountStore = async (): Promise<StoreItem[]> => {
 
     for (let i = 0; i < itemsQuantity; i++) {
 
+        const id = i
+        const img = await getImage()
+        const name = getName()
+        const description = descriptions.shift()
+        const price = (Math.round(Math.abs(10 + name.length * ((500 - description.length) / (4 - name.length))) * 100) / 100).toFixed(2)
 
         const item: StoreItem = {
-            id: i,
-            img: await getImage(),
-            name: getName(),
-            description: descriptions.shift(),
-            price: "500",
+            id,
+            img,
+            name,
+            description,
+            price: price,
             favorite: false
         }
 

@@ -25,11 +25,15 @@ const LogoContainer = styled.figure`
 `;
 
 const Header = () => {
-  return (
+  return (<>
     <HeaderContainer>
       <LogoContainer><Link to="./">acme inc.</Link></LogoContainer>
       <Navbar />
     </HeaderContainer>
+
+  </>
+
+
   );
 };
 

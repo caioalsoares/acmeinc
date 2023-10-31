@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { StoreContext } from "../../App";
-import AddFavSVG from "../../assets/addfav.svg"
-import FavSVG from "../../assets/fav.svg"
+import FavSvg from "../../assets/fav.tsx";
 
 
 export const CartButton = styled.button`
@@ -24,17 +23,12 @@ export const CartButton = styled.button`
 interface FavoriteButtonProps {
   itemId: number
   isFavorite: boolean
+  fill: string
 }
 
-const Svg = styled.img<{ invert?: boolean }> `
-  cursor: pointer;
-`
-
-
-
-export const FavoriteButton = ({ itemId, isFavorite }: FavoriteButtonProps) => {
+export const FavoriteButton = ({ itemId, isFavorite, fill }: FavoriteButtonProps) => {
 
   const { handleFavorite } = useContext(StoreContext)
 
-  return (<Svg src={isFavorite ? FavSVG : AddFavSVG} onClick={() => handleFavorite(itemId)} />)
+  return <a onClick={() => handleFavorite(itemId)} style={{ cursor: "pointer" }}><FavSvg fill={fill} selected={isFavorite} /></a>
 }

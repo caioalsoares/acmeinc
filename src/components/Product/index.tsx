@@ -1,44 +1,39 @@
 import styled from "styled-components";
 import { StoreItem } from "../../api";
-import { useContext } from "react";
-import { StoreContext } from "../../App";
 import { FavoriteButton } from "../Common";
 import { Link } from "react-router-dom";
 
 const ProductContainer = styled.div`
   border-radius: 0.5rem;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   max-width: 250px;
+  height: 100%;
+  overflow: hidden;
   box-shadow:
     rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
   position: relative;
+  transition: 0.250s;
+
+  &:hover {
+    transform: scale(1.025);
+  }
 `;
 
 const ProductInfoContainer = styled.div`
   padding: 0.75rem;
   display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-areas:
-    "title price"
-    "details price";
+  flex: 1;
+  display: flex;
+  gap:0.5rem;
 `;
 
 const ProductTitle = styled.div`
   font-weight: 600;
-  grid-area: title;
+  flex: 1;
 `;
-const ProductDetails = styled.div`
-  font-weight: 300;
-  font-size: 12px;
-  text-decoration: underline;
-  color: black;
-  grid-area: details;
 
-  & a {
-    color: black;
-  }
-`;
 const Favorite = styled.div`
   position: absolute;
   top: 0.5rem;
@@ -47,7 +42,6 @@ const Favorite = styled.div`
 `;
 
 const Price = styled.div`
-  grid-area: price;
   display: flex;
   font-weight: 300;
   align-items: center;
@@ -62,20 +56,18 @@ interface ProductsProps {
 
 const Product = ({ item }: ProductsProps) => {
 
-  const { dispatchCart } = useContext(StoreContext)
   return (
-    <ProductContainer>
-      <img src={item.img} />
-      <Favorite>
-        <FavoriteButton isFavorite={item.favorite} itemId={item.id} />
-      </Favorite>
-      <ProductInfoContainer>
-        <ProductTitle>{item.name}</ProductTitle>
-        <a onClick={() => dispatchCart({ type: "add", item })}>adicionar</a>
-        <ProductDetails><Link to={`/acmeinc/produto/${item.id}`} >ver detalhes</Link></ProductDetails>
-        <Price>R${item.price}</Price>
-      </ProductInfoContainer >
 
+    <ProductContainer><Favorite>
+      <FavoriteButton fill="white" isFavorite={item.favorite} itemId={item.id} />
+    </Favorite><Link to={`/acmeinc/produto/${item.id}`} >
+        <img src={item.img} width="100%" />
+
+        <ProductInfoContainer>
+          <ProductTitle>{item.name}</ProductTitle>
+          <Price>R${item.price}</Price>
+        </ProductInfoContainer >
+      </Link>
     </ProductContainer >
   );
 };

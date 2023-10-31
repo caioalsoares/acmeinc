@@ -19,6 +19,14 @@ const router = createBrowserRouter([
     }, {
       path: "/acmeinc/produto/:id",
       element: <ProductDetails />
+    },
+    {
+      path: "/acmeinc/favorites",
+      element: <Products type="favorite" />
+
+    }, {
+      path: "/acmeinc/search/:searchParam",
+      element: <Products type="search" />
     }
     ]
   },
