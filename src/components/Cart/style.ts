@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-export const CartWrapper = styled.div<{ $show: boolean }>`
-  position: fixed;
-  right: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 5;
-  backdrop-filter: blur(5px) grayscale(80%);
-  display: ${(props) => (props.$show ? "block" : "none")};
-`;
-
 export const CartContainer = styled.aside`
   @keyframes showCart {
     from {
@@ -98,3 +87,10 @@ export const Remove = styled.div`
     cursor: pointer;
   }
 `;
+
+
+export const EmptyWarning = styled.div`
+  font-size: small;
+  text-align: center;
+  padding: 1rem;
+`

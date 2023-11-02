@@ -1,5 +1,5 @@
 import CartSVG from "../../assets/cart.svg";
-import UserSVG from "../../assets/user.svg";
+import LoginSVG from "../../assets/login.svg";
 import SearchSVG from "../../assets/search.svg";
 import { useContext, useState } from "react";
 import { CartContext, StoreContext } from "../../App";
@@ -25,7 +25,7 @@ const Search = () => {
   };
 
   return (
-    <SearchContainer showSearch={showSearch} onSubmit={(e) => handleSearch(e)}>
+    <SearchContainer $showsearch={showSearch} onSubmit={(e) => handleSearch(e)}>
       {showSearch && (
         <SearchInput
           autoFocus
@@ -46,7 +46,7 @@ const Search = () => {
 };
 
 const Navbar = () => {
-  const { setShowCart } = useContext(StoreContext);
+  const { setShowCart, isLogged, user } = useContext(StoreContext);
   const cart = useContext(CartContext);
 
   return (
@@ -63,9 +63,10 @@ const Navbar = () => {
       <Link to="/acmeinc/favorites">
         <FavSvg selected fill="#424242" menu />
       </Link>
-      <a>
-        <img src={UserSVG} />
-      </a>
+      {isLogged ? `Olá, ${user}` : <Link to="/acmeinc/login">
+        <img src={LoginSVG} />
+      </Link>}
+
     </NavbarContainer>
   );
 };

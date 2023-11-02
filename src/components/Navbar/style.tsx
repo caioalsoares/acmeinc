@@ -8,6 +8,7 @@ export const NavbarContainer = styled.div`
   a {
     padding: 0.5rem;
     cursor: pointer;
+;
   }
 `;
 
@@ -43,8 +44,11 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const SearchContainer = styled.form<{ showSearch: boolean }>`
-  background-color: ${(props) => (props.showSearch ? "white" : null)};
+interface SearchContainerProps {
+  $showsearch: boolean;
+}
+export const SearchContainer = styled.form<SearchContainerProps>`
+  background-color: ${(props) => (props.$showsearch ? "white" : null)};
   display: flex;
   align-items: center;
   padding-left: 8px;

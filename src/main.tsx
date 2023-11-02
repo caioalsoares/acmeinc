@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -10,7 +10,11 @@ import Login from "./components/login/index.tsx";
 const router = createBrowserRouter([
   {
     path: "/acmeinc",
-    element: <App />,
+    element: (
+      <Suspense fallback={<>carregando</>}>
+        <App />
+      </Suspense>
+    ),
     children: [
       {
         path: "/acmeinc",

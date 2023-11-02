@@ -4,6 +4,7 @@ import { StoreContext } from "../../App";
 import { matchSorter } from "match-sorter";
 import { useParams } from "react-router-dom";
 import { ProductsContainer, Title } from "./style";
+import { EmptyWarning } from "../Cart/style";
 
 interface ProductsProps {
   type?: "favorite" | "search" | "similar";
@@ -51,15 +52,32 @@ const Products = ({ type }: ProductsProps) => {
     }
   };
 
+  const handleEmptyMessage = (type: string | undefined) => {
+    switch (type) {
+      case "similar": {
+        return "Erro ao carregar produtos similares.";
+      }
+      case "search": {
+        return "Nenhum produto encontrado.";
+      }
+      case "favorite": {
+        return "Você ainda não adicionou produtos ao seus favoritos.";
+      }
+      default: {
+        return "unknown error";
+      }
+    }
+  };
+
   return (
     <>
-      {" "}
       <Title>{handleTitle(type)}</Title>
       <ProductsContainer>
         {products.map((item) => (
           <Product key={item.id} item={item} />
         ))}
       </ProductsContainer>
+      {!products.length && <EmptyWarning>{handleEmptyMessage(type)}</EmptyWarning>}
     </>
   );
 };

@@ -18,6 +18,16 @@ export const CartButton = styled.button`
     background-color: #424242;
   }
 `;
+export const Wrapper = styled.div<{ $show: boolean }>`
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
+  backdrop-filter: blur(5px) grayscale(80%);
+  display: ${(props) => (props.$show ? "block" : "none")};
+`;
 
 interface FavoriteButtonProps {
   itemId: number;

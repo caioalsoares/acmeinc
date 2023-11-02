@@ -6,7 +6,6 @@ import {
   ProductCardImage,
   ProductCardTitle,
   ProductCardPrice,
-  CartWrapper,
   CartContainer,
   CartHeader,
   CartTitle,
@@ -14,11 +13,13 @@ import {
   CloseButton,
   Total,
   Remove,
+  EmptyWarning,
 } from "./style";
 import { Typography } from "../LayoutItem/style";
 import { StoreItem } from "../../api";
-import { CartButton } from "../Common";
+import { CartButton, Wrapper } from "../Common";
 import MinusSVG from "../../assets/minus.svg";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   item: StoreItem;
@@ -41,8 +42,17 @@ const ProductCard = ({ item }: ProductCardProps) => {
 };
 
 const Cart = () => {
-  const { showCart, setShowCart } = useContext(StoreContext);
+  const { showCart, setShowCart, isLogged } = useContext(StoreContext);
   const cart = useContext(CartContext);
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    console.log("compra finalizada");
+  };
+  const handleCheckoutLogin = () => {
+    setShowCart(false);
+    navigate("/acmeinc/login");
+  };
 
   const total =
     cart.length &&
@@ -50,16 +60,14 @@ const Cart = () => {
       .map((item) => +item.price)
       .reduce((accumulator, currentValue) => accumulator + currentValue);
 
-  console.log(total);
-
   return (
-    <CartWrapper $show={showCart}>
+    <Wrapper $show={showCart}>
       <CartContainer>
         <CartHeader>
           <CloseButton src={CloseSVG} onClick={() => setShowCart(false)} />
           <CartTitle>Itens no carrinho</CartTitle>
         </CartHeader>
-        <ProductsContainer>
+        {cart.length ? <ProductsContainer>
           {cart.map((item: StoreItem) => (
             <ProductCard item={item} key={item.id} />
           ))}
@@ -72,10 +80,18 @@ const Cart = () => {
               <Typography fontSize="18px">R${total.toFixed(2)}</Typography>
             </Total>
           )}
-        </ProductsContainer>
-        <CartButton>finalizar compra</CartButton>
+        </ProductsContainer> : <EmptyWarning>Seu carrinho está vazinho. Continue comprando!</EmptyWarning>}
+        {!!cart.length && (
+          <CartButton
+            onClick={() =>
+              isLogged ? handleCheckout() : handleCheckoutLogin()
+            }
+          >
+            {isLogged ? "finalizar compra" : "fazer login"}
+          </CartButton>
+        )}
       </CartContainer>
-    </CartWrapper>
+    </Wrapper>
   );
 };
 

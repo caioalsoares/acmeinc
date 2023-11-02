@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { StoreContext } from "../../App";
+import { CartContext, StoreContext } from "../../App";
 import Products from "../Products";
 import { Typography } from "../LayoutItem/style";
 import { CartButton, FavoriteButton } from "../Common";
@@ -15,8 +15,13 @@ import {
 
 const ProductDetails = () => {
   const { store, dispatchCart } = useContext(StoreContext);
+  const cart = useContext(CartContext);
 
   const { id } = useParams();
+
+  const isOnCart: boolean = !!(
+    id && cart.find((item) => item.id == parseInt(id))
+  );
 
   const product = id && store.find((item) => item.id == parseInt(id));
 
@@ -38,8 +43,9 @@ const ProductDetails = () => {
           <ProductBuy>
             <CartButton
               onClick={() => dispatchCart({ type: "add", item: product })}
+              disabled={isOnCart}
             >
-              adicionar ao carrinho
+              {isOnCart ? "no carrinho" : "adicionar ao carrinho"}
             </CartButton>
             <FavoriteButton
               isFavorite={product.favorite}
