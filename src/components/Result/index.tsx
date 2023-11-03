@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CartContext, LoginContext } from "../../App";
+import { CartContext } from "../../App";
 import styled from "styled-components";
 
 const ResultContainer = styled.div`
@@ -16,7 +16,6 @@ const ResultContainer = styled.div`
 
 const Result = () => {
   const cart = useContext(CartContext);
-  const { user } = useContext(LoginContext);
 
   return (
     <ResultContainer>
