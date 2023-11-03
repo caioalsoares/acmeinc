@@ -28,10 +28,6 @@ export const StoreContext = createContext<StoreContextProps>({
 });
 
 export const CartContext = createContext<StoreItem[]>([]);
-export const LoginContext = createContext<LoggedInInfo>({
-  isLogged: false,
-  user: "",
-});
 
 const Content = styled.main`
   max-width: 1050px;
