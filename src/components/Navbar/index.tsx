@@ -46,7 +46,7 @@ const Search = () => {
 };
 
 const Navbar = () => {
-  const { setShowCart, isLogged, user } = useContext(StoreContext);
+  const { setShowCart, isLogged } = useContext(StoreContext);
   const cart = useContext(CartContext);
 
   return (
@@ -63,10 +63,11 @@ const Navbar = () => {
       <Link to="/acmeinc/favorites">
         <FavSvg selected fill="#424242" menu />
       </Link>
-      {isLogged ? `Olá, ${user}` : <Link to="/acmeinc/login">
-        <img src={LoginSVG} />
-      </Link>}
-
+      {!isLogged && (
+        <Link to="/acmeinc/login">
+          <img src={LoginSVG} />
+        </Link>
+      )}
     </NavbarContainer>
   );
 };

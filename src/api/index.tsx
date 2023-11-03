@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 let seedCounter = 0;
-const itemsQuantity = 15;
+const itemsQuantity = 30;
 
 export interface StoreItem {
   id: number;

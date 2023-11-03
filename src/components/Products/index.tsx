@@ -3,13 +3,31 @@ import { useContext } from "react";
 import { StoreContext } from "../../App";
 import { matchSorter } from "match-sorter";
 import { useParams } from "react-router-dom";
-import { ProductsContainer, Title } from "./style";
+import {
+  ImageSkeleton,
+  ProductsContainer,
+  Title,
+  TitleSkeleton,
+} from "./style";
 import { EmptyWarning } from "../Cart/style";
+import { ProductContainer } from "../Product/style";
 
 interface ProductsProps {
   type?: "favorite" | "search" | "similar";
 }
-const Products = ({ type }: ProductsProps) => {
+
+export const ProductsSkeleton = () => {
+  const ItemsSkeleton = new Array(8).fill("");
+
+  return ItemsSkeleton.map((_item, index) => (
+    <ProductContainer key={index}>
+      <ImageSkeleton />
+      <TitleSkeleton />
+    </ProductContainer>
+  ));
+};
+
+export const Products = ({ type }: ProductsProps) => {
   const { store } = useContext(StoreContext);
 
   const { searchParam } = useParams();
@@ -64,7 +82,7 @@ const Products = ({ type }: ProductsProps) => {
         return "Você ainda não adicionou produtos ao seus favoritos.";
       }
       default: {
-        return "unknown error";
+        return null;
       }
     }
   };
@@ -73,11 +91,15 @@ const Products = ({ type }: ProductsProps) => {
     <>
       <Title>{handleTitle(type)}</Title>
       <ProductsContainer>
-        {products.map((item) => (
-          <Product key={item.id} item={item} />
-        ))}
+        {store.length ? (
+          products.map((item) => <Product key={item.id} item={item} />)
+        ) : (
+          <ProductsSkeleton />
+        )}
       </ProductsContainer>
-      {!products.length && <EmptyWarning>{handleEmptyMessage(type)}</EmptyWarning>}
+      {!products.length && (
+        <EmptyWarning>{handleEmptyMessage(type)}</EmptyWarning>
+      )}
     </>
   );
 };

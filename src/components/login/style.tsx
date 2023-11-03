@@ -58,4 +58,4 @@ export const LoginLabel = styled.label`
 export const ErrorText = styled.span`
   color: red;
   font-size: small;
-`
+`;

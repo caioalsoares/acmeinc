@@ -88,9 +88,8 @@ export const Remove = styled.div`
   }
 `;
 
-
 export const EmptyWarning = styled.div`
   font-size: small;
   text-align: center;
   padding: 1rem;
-`
+`;

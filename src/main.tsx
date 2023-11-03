@@ -6,6 +6,7 @@ import GlobalStyle from "./globalstyle.ts";
 import Products from "./components/Products/index.tsx";
 import ProductDetails from "./components/ProductDetail/index.tsx";
 import Login from "./components/login/index.tsx";
+import Result from "./components/Result/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/acmeinc/login",
         element: <Login />,
+      },
+      {
+        path: "/acmeinc/result",
+        element: <Result />,
       },
     ],
   },

@@ -9,7 +9,13 @@ import InputMask from "react-input-mask";
 import { LoginInfo, UserInfo, createUser, login } from "../../api/login";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+interface SignUpProps {
+  onSuccess: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SignUp = ({ onSuccess }: SignUpProps) => {
+  const [success, setSuccess] = useState(false);
+
   const [userInfo, setUserInfo] = useState<UserInfo>({
     name: "",
     password: "",
@@ -21,6 +27,8 @@ const SignUp = () => {
     e.preventDefault();
 
     createUser(userInfo);
+    setSuccess(true);
+    setTimeout(() => onSuccess("login"), 2000);
   };
 
   return (
@@ -63,7 +71,9 @@ const SignUp = () => {
           }
         />
       </LoginLabel>
-      <CartButton>cadastre-se</CartButton>
+      <CartButton>
+        {success ? "seu cadastro foi concluido!" : "cadastrar"}
+      </CartButton>
     </LoginForm>
   );
 };
@@ -107,7 +117,9 @@ const LogIn = () => {
         />
       </LoginLabel>
 
-      {loginStatus == "error" && <ErrorText>usuário ou senha não encontrado.</ErrorText>}
+      {loginStatus == "error" && (
+        <ErrorText>usuário ou senha não encontrado.</ErrorText>
+      )}
 
       <CartButton>login</CartButton>
     </LoginForm>
@@ -140,7 +152,7 @@ const Login = () => {
               <a onClick={() => setLoginScreen("login")}>Entre na sua conta</a>
             </h2>
 
-            <SignUp />
+            <SignUp onSuccess={() => setLoginScreen("login")} />
           </>
         );
       }

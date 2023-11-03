@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import { CartActionType, cartReducer } from "./reducer";
 import { MountStore, StoreItem } from "./api";
 import styled from "styled-components";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { LoggedInInfo } from "./api/login";
 
 interface StoreContextProps {
@@ -22,9 +22,9 @@ export const StoreContext = createContext<StoreContextProps>({
   store: [],
   isLogged: false,
   user: "",
-  setShowCart: () => { },
-  handleFavorite: () => { },
-  dispatchCart: () => { },
+  setShowCart: () => {},
+  handleFavorite: () => {},
+  dispatchCart: () => {},
 });
 
 export const CartContext = createContext<StoreItem[]>([]);
@@ -34,7 +34,7 @@ export const LoginContext = createContext<LoggedInInfo>({
 });
 
 const Content = styled.main`
-  max-width: 1100px;
+  max-width: 1050px;
   margin: 0px auto;
 `;
 
@@ -43,7 +43,7 @@ function App() {
   const [store, setStore] = useState<StoreItem[]>([]);
   const [cart, dispatchCart] = useReducer(cartReducer, []);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const loginInfo = localStorage.getItem("loggedUser");
 
@@ -52,7 +52,7 @@ function App() {
       item.id == itemId ? { ...item, favorite: !item.favorite } : item,
     );
 
-    return loginInfo ? setStore(setFavorite) : navigate("/acmeinc/login")
+    return loginInfo ? setStore(setFavorite) : navigate("/acmeinc/login");
   };
 
   const { pathname } = useLocation();
@@ -64,8 +64,6 @@ function App() {
   useEffect(() => {
     MountStore().then((data) => setStore(data));
   }, []);
-
-  console.log(!!loginInfo);
 
   return (
     <StoreContext.Provider
@@ -82,7 +80,7 @@ function App() {
       <CartContext.Provider value={cart}>
         <Header></Header>
         <Content>
-          {store.length ? <Outlet /> : "carregando"}
+          <Outlet />
         </Content>
         <Cart />
       </CartContext.Provider>

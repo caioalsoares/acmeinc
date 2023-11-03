@@ -47,7 +47,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    console.log("compra finalizada");
+    navigate("/acmeinc/result");
   };
   const handleCheckoutLogin = () => {
     setShowCart(false);
@@ -67,20 +67,26 @@ const Cart = () => {
           <CloseButton src={CloseSVG} onClick={() => setShowCart(false)} />
           <CartTitle>Itens no carrinho</CartTitle>
         </CartHeader>
-        {cart.length ? <ProductsContainer>
-          {cart.map((item: StoreItem) => (
-            <ProductCard item={item} key={item.id} />
-          ))}
+        {cart.length ? (
+          <ProductsContainer>
+            {cart.map((item: StoreItem) => (
+              <ProductCard item={item} key={item.id} />
+            ))}
 
-          {!!total && (
-            <Total>
-              <Typography fontWeight="600" fontSize="14px">
-                Total:
-              </Typography>
-              <Typography fontSize="18px">R${total.toFixed(2)}</Typography>
-            </Total>
-          )}
-        </ProductsContainer> : <EmptyWarning>Seu carrinho está vazinho. Continue comprando!</EmptyWarning>}
+            {!!total && (
+              <Total>
+                <Typography fontWeight="600" fontSize="14px">
+                  Total:
+                </Typography>
+                <Typography fontSize="18px">R${total.toFixed(2)}</Typography>
+              </Total>
+            )}
+          </ProductsContainer>
+        ) : (
+          <EmptyWarning>
+            Seu carrinho está vazinho. Continue comprando!
+          </EmptyWarning>
+        )}
         {!!cart.length && (
           <CartButton
             onClick={() =>

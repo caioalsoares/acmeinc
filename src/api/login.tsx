@@ -25,8 +25,6 @@ export const login = (info: LoginInfo): LoggedInInfo => {
 
   const passwordValidation = !!findUser && findUser.password == info.password;
 
-  console.log(!!passwordValidation, findUser?.password, info.password);
-
   passwordValidation && localStorage.setItem("loggedUser", info.email);
 
   return {

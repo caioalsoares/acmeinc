@@ -8,7 +8,6 @@ export const NavbarContainer = styled.div`
   a {
     padding: 0.5rem;
     cursor: pointer;
-;
   }
 `;
 

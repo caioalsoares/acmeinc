@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const ProductsContainer = styled.main`
   display: grid;
   grid-template-rows: auto auto 1fr auto;
+  width: 1000px;
   grid-template-areas:
     "image name"
     "image price"

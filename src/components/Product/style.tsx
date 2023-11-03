@@ -4,7 +4,7 @@ export const ProductContainer = styled.div`
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
-  max-width: 250px;
+  max-width: 100%;
   height: 100%;
   overflow: hidden;
   box-shadow:
